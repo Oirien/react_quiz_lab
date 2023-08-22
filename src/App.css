@@ -1,0 +1,20 @@
+li{
+    list-style-type: none;
+    padding: 1rem;
+    margin: 0.5rem;
+}
+
+li.Correct{
+    border: 2px solid green;
+    background-color: rgba(0, 128, 0, 0.1);
+}
+
+li.Wrong{
+    border: 2px solid red;
+    background-color: rgba(255, 0, 0, 0.10)
+}
+
+ul.option__wrapper{
+    display: flex;
+    gap: 0.5 rem;
+}

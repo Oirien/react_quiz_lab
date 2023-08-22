@@ -1,5 +1,6 @@
 import { useState } from "react";
 import QuestionList from "./components/QuestionList";
+import "./app.css"
 
 const Quiz = () => {
 	const [questions, setQuestions] = useState([
@@ -25,12 +26,16 @@ const Quiz = () => {
 	const [score, setScore] = useState(0);
 	const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 	const handleAnswerSelect = (selectedAnswer) => {
-		console.log(selectedAnswer);
-		setCurrentQuestionIndex(currentQuestionIndex + 1);
-		if (selectedAnswer == questions[currentQuestionIndex].answer) {
-			setScore(score + 1);
+		const isCorrect = [...questions];
+		if (selectedAnswer === isCorrect[currentQuestionIndex].answer) {
+		  setScore(score + 1);
+		  isCorrect[currentQuestionIndex].correct = "Correct";
+		} else {
+		  isCorrect[currentQuestionIndex].correct = "Wrong";
 		}
-	};
+		setCurrentQuestionIndex(currentQuestionIndex + 1);
+		setQuestions(isCorrect);
+	  };
 	const handleResetFunction = () => {
 		setCurrentQuestionIndex(0);
 		setScore(0);
