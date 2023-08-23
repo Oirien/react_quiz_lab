@@ -17,11 +17,9 @@ function QuestionList({ questions, currentQuestionIndex, handleAnswerSelect, sco
 				<ul>
 					{questions.map((question, index) => (
 						<li key={index} className={question.correct}>
-							{question.question} - {question.correct === "Correct" ? "Correct" : "Wrong"}
+							{question.question} - {question.correct === "Correct" ? `Correct: ${question.correct_answer}` : "Wrong"}
+							<h5>Answers</h5>
 							<ul className="option__wrapper">
-								<li>
-									<h5>Answers</h5>
-								</li>
 								{question.options.map((option, i) => (
 									<li key={i} className="option">
 										{option}

@@ -1,35 +1,31 @@
 import { useState } from "react";
 import QuestionList from "./components/QuestionList";
 import "./app.css";
+import { useEffect } from "react";
 
 const Quiz = () => {
-	const [questions, setQuestions] = useState([
-		{
-			question: "What was the name of the first computer virus that spread in the wild?",
-			options: ["Creeper", "ILOVEYOU", "Melissa", "Brain"],
-			answer: "Brain",
-			correct: null
-		},
-		{
-			question: "Which programming language is often referred to as the 'mother of all languages'?",
-			options: ["Java", "C", "Fortran", "Assembly"],
-			answer: "C",
-			correct: null
-		},
-		{
-			question: "In what year was the company Google founded?",
-			options: ["1996", "1998", "2000", "2004"],
-			answer: "1998",
-			correct: null
-		}
-	]);
+	const [questions, setQuestions] = useState([]);
 
+	useEffect(() => {
+		fetch("https://opentdb.com/api.php?amount=20&category=20&difficulty=medium&type=multiple")
+			.then((res) => res.json())
+			.then((data) => {
+				console.log(data.results);
+				data.results.forEach((element) => {
+					element.options = element.incorrect_answers.map((answer) => answer);
+					element.options.push(element.correct_answer);
+					element.options.sort();
+				});
+				setQuestions(data.results);
+			});
+	}, []);
+	console.log(questions);
 	const [score, setScore] = useState(0);
 	const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
 	const handleAnswerSelect = (selectedAnswer) => {
 		const isCorrect = [...questions];
-		if (selectedAnswer === isCorrect[currentQuestionIndex].answer) {
+		if (selectedAnswer === isCorrect[currentQuestionIndex].correct_answer) {
 			setScore(score + 1);
 			isCorrect[currentQuestionIndex].correct = "Correct";
 		} else {
