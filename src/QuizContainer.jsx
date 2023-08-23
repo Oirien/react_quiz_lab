@@ -1,6 +1,6 @@
 import { useState } from "react";
 import QuestionList from "./components/QuestionList";
-import "./app.css"
+import "./app.css";
 
 const Quiz = () => {
 	const [questions, setQuestions] = useState([
@@ -23,19 +23,22 @@ const Quiz = () => {
 			correct: null
 		}
 	]);
+
 	const [score, setScore] = useState(0);
 	const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+
 	const handleAnswerSelect = (selectedAnswer) => {
 		const isCorrect = [...questions];
 		if (selectedAnswer === isCorrect[currentQuestionIndex].answer) {
-		  setScore(score + 1);
-		  isCorrect[currentQuestionIndex].correct = "Correct";
+			setScore(score + 1);
+			isCorrect[currentQuestionIndex].correct = "Correct";
 		} else {
-		  isCorrect[currentQuestionIndex].correct = "Wrong";
+			isCorrect[currentQuestionIndex].correct = "Wrong";
 		}
 		setCurrentQuestionIndex(currentQuestionIndex + 1);
 		setQuestions(isCorrect);
-	  };
+	};
+
 	const handleResetFunction = () => {
 		setCurrentQuestionIndex(0);
 		setScore(0);
@@ -44,7 +47,6 @@ const Quiz = () => {
 	return (
 		<>
 			<h1>LE QUIZ</h1>
-			<h2>Your score is: {score}</h2>
 			<QuestionList
 				questions={questions}
 				currentQuestionIndex={currentQuestionIndex}
@@ -53,7 +55,6 @@ const Quiz = () => {
 				handleResetFunction={handleResetFunction}
 			/>
 		</>
-		// getquestion to display
 	);
 };
 

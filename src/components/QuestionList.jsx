@@ -1,10 +1,11 @@
 import Question from "./Question";
-import "../app.css"
+import "../app.css";
 
 function QuestionList({ questions, currentQuestionIndex, handleAnswerSelect, score, handleResetFunction }) {
 	if (questions.length >= currentQuestionIndex + 1) {
 		return (
 			<>
+				<h2>Your score is: {score}</h2>
 				<Question questionItem={questions[currentQuestionIndex]} handleAnswerSelect={handleAnswerSelect} />
 			</>
 		);
@@ -12,17 +13,23 @@ function QuestionList({ questions, currentQuestionIndex, handleAnswerSelect, sco
 		return (
 			<>
 				<h1>Your final score is {score}</h1>
-				<h2>Questions</h2>
+				<h3>Questions</h3>
 				<ul>
-				{questions.map((question, index) => (
-					<li key={index} className={question.correct}>
-					{question.question} - {question.correct === "Correct" ? "Correct" : "Wrong"}
-					<ul className="option__wrapper">
-					<li><h3>Answers</h3></li>
-						{question.options.map((option, i) => <li key={i} className="option">{option}</li>)}
-					</ul>
-					</li>
-				))}
+					{questions.map((question, index) => (
+						<li key={index} className={question.correct}>
+							{question.question} - {question.correct === "Correct" ? "Correct" : "Wrong"}
+							<ul className="option__wrapper">
+								<li>
+									<h5>Answers</h5>
+								</li>
+								{question.options.map((option, i) => (
+									<li key={i} className="option">
+										{option}
+									</li>
+								))}
+							</ul>
+						</li>
+					))}
 				</ul>
 				<button
 					onClick={() => {
